@@ -6,7 +6,6 @@ contract e {
     Crowdfunding public store;
 
     // 상속하면 형식만 가져오는 것이고 실제 데이터를 공유하는 역할을 하지 못합니다
-    // 컨트랙트가 각자 다른 값들을 보게 됨..
     
     constructor(address _storageAddr) {
         store = Crowdfunding(_storageAddr);
@@ -14,8 +13,6 @@ contract e {
 
     function refund(uint campaignID) external {
 
-        // 외부 컨트랙트에서 스트럭트를 얻으면 메모리로 밖에 못 받음
-        // getCampaign 함수 필요
         Crowdfunding.Campaign memory c = store.getCampaign(campaignID);
         require(block.timestamp > c.deadline, "Campaign not ended yet.");
         require(c.totalFunded < c.goalAmount, "Campaign was successful.");
